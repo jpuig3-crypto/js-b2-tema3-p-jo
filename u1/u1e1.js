@@ -47,9 +47,11 @@ function updateItemStyle(idItem) {
     }
 }
 
-const words = getItems();
+window.onload = function() {
+    const words = getItems();
 
-renderList(words, 'en');
+    renderList(words, 'en');
 
-updateItemStyle(2);
-updateItemStyle(4);
+    updateItemStyle(2);
+    updateItemStyle(4);
+};
