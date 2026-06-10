@@ -13,6 +13,23 @@
 
     <!-- BEGIN templates zone -->
 
+    <template id="tpl-project">
+        <div class="js-project" data-id="" data-tags="" data-search="" data-archived="">
+            <h2><span class="js-name">[*project_name*]</span> (<span class="js-progress">[*progress*]</span>%)</h2>
+            <p class="js-excerpt">[*project_excerpt*]</p>
+            <div>
+                <span class="js-category">[*category_name*]</span>
+                <span class="js-tags">[*tag_list*]</span>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-tag">
+        <span class="js-tag">
+            <a class="js-tag-link" data-tag="[*tag*]" href="">[*tag*]</a>
+        </span>
+    </template>
+
     <!-- END templates zone -->
 
     <script src="u1e2.js"></script>
