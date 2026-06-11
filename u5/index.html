@@ -31,7 +31,7 @@
         }
     </style>
 </head>
-<body id="#app">
+<body id="app">
     <div class="board">
         <div class="half">
             <h2>Text to copy (editable):</h2>
@@ -44,22 +44,40 @@
             <button class="js-paste-button">Paste!</button>
         </div>
     </div>
-
+    <p class="js-status" aria-live="polite"></p>
 
     <script type="module">
         import { ClipboardApi } from './u5e1.js';
 
         const clipboard = new ClipboardApi();
+        const copyButton = document.querySelector('.js-copy-button');
+        const pasteButton = document.querySelector('.js-paste-button');
+        const status = document.querySelector('.js-status');
 
-        document.querySelector('.js-copy-button').addEventListener('click', (ev) => {
+        if (!navigator.clipboard) {
+            status.innerText = 'Clipboard API no disponible en este navegador o contexto.';
+            copyButton.disabled = true;
+            pasteButton.disabled = true;
+        }
+
+        copyButton.addEventListener('click', async () => {
             const copiedText = document.querySelector('.js-copy-from').textContent;
-            clipboard.copy(copiedText);
+            try {
+                await clipboard.copy(copiedText);
+                status.innerText = 'Texto copiado al portapapeles.';
+            } catch (error) {
+                status.innerText = `Error al copiar: ${error.message}`;
+            }
         });
 
-        document.querySelector('.js-paste-button').addEventListener('click', (ev) => {
-            clipboard.read().then((clipText) => {
+        pasteButton.addEventListener('click', async () => {
+            try {
+                const clipText = await clipboard.read();
                 document.querySelector('.js-copy-to').innerText = clipText;
-            });
+                status.innerText = 'Texto pegado desde el portapapeles.';
+            } catch (error) {
+                status.innerText = `Error al pegar: ${error.message}`;
+            }
         });
     </script>
 </body>
